@@ -11,7 +11,7 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle('Bloco de Notas')
+        self.setWindowTitle('BlocoDeNotas')
         self.setMinimumSize(500, 900)
 
         self.lbl_id = QLabel('Bloco de notas')
