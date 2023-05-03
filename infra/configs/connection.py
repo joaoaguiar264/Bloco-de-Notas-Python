@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from infra.configs.base import Base
+
+
 class DBConnectionHandler:
 
     def __init__(self):
@@ -15,14 +18,21 @@ class DBConnectionHandler:
             engine.connect()
         except Exception as e:
             if '1049' in str(e):
-                engine = create_engine(self.__connection_string.rsplit('/', 1)[0], echo=True)
-                conn = engine.connect()
-                conn.execute(f'CREATE DATABASE IF NOT EXISTS {self.__connection_string.rsplit("/", 1)[1]}')
-                conn.close()
-                print('Banco criado')
+                try:
+                    engine = create_engine(self.__connection_string.rsplit('/', 1)[0], echo=True)
+                    conn = engine.connect()
+                    conn.execute(f'CREATE DATABASE IF NOT EXISTS {self.__connection_string.rsplit("/", 1)[1]}')
+                    conn.close()
+                    print('Banco criado')
+                    self.__create_table()
+                except Exception as e:
+                    print(e)
             else:
                 raise e
-
+    def __create_table(self):
+        engine = create_engine(self.__connection_string, echo=True)
+        Base.metadata.create_all(engine)
+        print('Tabela nota criada com sucesso')
     def __create_engine(self):
         engine = create_engine(self.__connection_string)
         return engine
