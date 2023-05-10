@@ -11,14 +11,12 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         conn = DBConnectionHandler()
-        # conn.create_database()
 
         self.setWindowTitle('BlocoDeNotas')
         self.setMinimumSize(500, 900)
 
         self.lbl_id = QLabel('Bloco de notas')
 
-        #self.txt_id = QLineEdit(self)
         self.lbl_titulo = QLabel('Título', self)
         self.txt_titulo = QLineEdit(self)
         self.lbl_nota = QLabel('Nota', self)
@@ -41,7 +39,6 @@ class MainWindow(QMainWindow):
 
         layout = QVBoxLayout()
         layout.addWidget(self.lbl_id)
-        #layout.addWidget(self.txt_id)
         layout.addWidget(self.lbl_titulo)
         layout.addWidget(self.txt_titulo)
         layout.addWidget(self.lbl_nota)
@@ -127,7 +124,6 @@ class MainWindow(QMainWindow):
 
         self.btn_salvar.setText('Salvar')
         self.btn_remover.setVisible(False)
-        #self.txt_id.setReadOnly(False)
 
 
     def popula_tabela_notas(self):
@@ -152,7 +148,6 @@ class MainWindow(QMainWindow):
         self.txt_nota.setText(self.tabela_notas.item(row, 2).text())
 
         self.btn_salvar.setText('Atualizar')
-        #self.txt_cpf.setReadOnly(True)
         self.btn_limpar.setVisible(False)
         self.btn_remover.setVisible(True)
 
